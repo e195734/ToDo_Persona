@@ -1,2 +1,2 @@
 # ToDo_Persona
-ブランチを切って作業してください
+ブランチを切って作業してくださいex)develop_html,develop_CSS
