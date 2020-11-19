@@ -6,3 +6,5 @@ html+CSS+javascript
 nginx
 node.js
 MySQL
+
+discordを用いて連絡等取り合う
