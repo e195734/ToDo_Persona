@@ -3,11 +3,15 @@
   <head>
     <meta charset="UTF-8">
     <title>ToDoリスト</title>
-    <script type="script/javascript" src="/pages/todo.js"></script>
+    <script type="text/javascript" src="../scripts/todo.js"></script>
   </head>
   <body>
     <h1>ToDoリスト</h1>
-    <form action="/todo" method="post" id="add-list">
+    <ul>
+      <p id="list">
+    </ul>
+    <!--<form action="/todo" method="post" id="add-list">post機能を一時的に削除-->
+    <form id="add-list">
       <input type="text" id="todo">
       <button type="submit"> 登録</button>
     </form>
