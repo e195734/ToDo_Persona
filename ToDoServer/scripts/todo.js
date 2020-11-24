@@ -1,6 +1,9 @@
 window.onload = function(){
-  document.getElementById("add-list").onsubmit = function(){
-      document.getElementById("list").insertAdjacentHTML('afterbegin','<li>abc</li>');//要素の追加
-    return confirm("この内容で登録しますか?");
+  document.getElementById("add-list").onclick = function(){
+    var str = document.getElementById("todo").value;//入力文字列の取得
+    if(str!=""){
+      document.getElementById("list").insertAdjacentHTML('beforeend','<li>'+str+'</li>');//要素の追加
+      document.getElementById("todo").value = '';//入力内容のクリア
+    }
   }
 }
