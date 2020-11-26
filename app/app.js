@@ -22,7 +22,7 @@ app.get('/todo', (req, res) => {
     'SELECT * FROM items',
     (error, results) => {
       // res.renderの第２引数にオブジェクトを追加してください
-      res.render('index.ejs',{items:results});
+      res.render('todo.ejs',{items:results});
     }
   );
 });
