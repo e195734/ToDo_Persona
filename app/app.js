@@ -1,5 +1,13 @@
 const express = require('express');
+const mysql = require('mysql');
 const app = express();
+
+const connection = mysql.CreateConnection({//mysql接続の初期化
+  host: 'localhost',
+  user: '',　//dbのuser
+  password: '',//dbのpass
+  database: ''//database
+})
 
 app.get('/', (req, res) => {
   res.render('index.ejs');
@@ -10,7 +18,13 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/todo', (req, res) => {
-  res.render('todo.ejs');
+  connection.query(
+    'SELECT * FROM items',
+    (error, results) => {
+      // res.renderの第２引数にオブジェクトを追加してください
+      res.render('index.ejs',{items:results});
+    }
+  );
 });
 
 app.get('/register', (req, res) => {
