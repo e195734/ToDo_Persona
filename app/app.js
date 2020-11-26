@@ -21,7 +21,6 @@ app.get('/todo', (req, res) => {
   connection.query(
     'SELECT * FROM items',
     (error, results) => {
-      // res.renderの第２引数にオブジェクトを追加してください
       res.render('todo.ejs',{items:results});
     }
   );
