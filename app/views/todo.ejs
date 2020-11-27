@@ -12,10 +12,9 @@
         <li><%= todo.todo %></li>
       <% }) %>
     </ul>
-    <!--<form action="/todo" method="post" id="add-list">post機能を一時的に削除-->
-    <form>
-      <input type="text" id="todo">
-      <button type="button" id="add-list"> 登録</button>
+    <form action="/add" method="post" id="add-list">
+      <input type="text" id="todo" name="todo">
+      <button type="submit" id="add-list"> 登録</button>
     </form>
   </body>
 </html>
