@@ -2,12 +2,12 @@ const express = require('express');
 const mysql = require('mysql');
 const app = express();
 
-const connection = mysql.CreateConnection({//mysql接続の初期化
+const connection = mysql.createConnection({ //mysql接続の初期化
   host: 'localhost',
-  user: '',　//dbのuser
-  password: '',//dbのpass
-  database: ''//database
-})
+  user: 'root',　//dbのuser
+  password: 'EW4bH2hq',//dbのpassword
+  database: 'test'//database
+});
 
 app.get('/', (req, res) => {
   res.render('index.ejs');
@@ -19,9 +19,12 @@ app.get('/login', (req, res) => {
 
 app.get('/todo', (req, res) => {
   connection.query(
-    'SELECT * FROM items',
-    (error, results) => {
-      res.render('todo.ejs',{items:results});
+    'SELECT * FROM ToDoList', 
+    (error, results,fields) => {
+      res.render('todo.ejs',{ToDoList:results});//ejsに値を渡してhtmlを生成
+      //console.log(results);
+      //console.log(error);
+      //console.log(fields);
     }
   );
 });
@@ -31,3 +34,4 @@ app.get('/register', (req, res) => {
 });
 
 app.listen(3000);
+
