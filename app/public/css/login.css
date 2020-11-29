@@ -1,0 +1,25 @@
+h1 {
+    font-size: 30px;
+    font-family: "Arial Black";
+}
+
+
+form dl dt {
+    font-size: 18px;
+    font-family: "Arial";
+    width: 100px;
+    padding:10px 0;
+    float: left;
+    clear:both;
+}
+form dl dd{
+    padding:10px 0;
+  }
+
+
+button.login-button {
+    font-size: 1.3sem;
+    font-weight: bold;
+    padding: 10px 20px;
+    }
+    
