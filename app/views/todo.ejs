@@ -7,14 +7,25 @@
   </head>
   <body>
     <h1>ToDoリスト</h1>
-    <ul type="disc">
+    <table>
       <% ToDoList.forEach((todo) => { %>
-        <li><%= todo.todo %></li>
+      <tr>
+        <td>
+          <%= todo.todo %>
+        </td>
+        <td>
+          <form action="/delete_todo" method="post" id="delete-list">
+            <input type="hidden" id="toudou" name="todo" value="<%= todo.todo %>">
+            <button type="submit" id="delete-list">削除</button>
+          </form>
+        </td>
+      </tr>
       <% }) %>
-    </ul>
-    <form action="/add" method="post" id="add-list">
+    </table>
+    
+    <form action="/add_todo" method="post" id="add-list">
       <input type="text" id="todo" name="todo">
-      <button type="submit" id="add-list"> 登録</button>
+      <button type="submit" id="add-list">登録</button>
     </form>
   </body>
 </html>

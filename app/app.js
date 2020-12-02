@@ -29,7 +29,7 @@ app.get('/todo', (req, res) => {
   );
 });
 
-app.post('/add',(req,res)=>{
+app.post('/add_todo',(req,res)=>{
   connection.query(
     'INSERT INTO ToDoList values (?)',
     [req.body.todo],
@@ -37,7 +37,18 @@ app.post('/add',(req,res)=>{
       res.redirect('/todo');
       console.log(error);
       console.log(req.body.todo);
-  });
+    });
+});
+
+app.post('/delete_todo', (req,res)=>{
+  connection.query(
+    'DELETE FROM ToDoList WHERE todo=?',
+    [req.body.todo],
+    (error,results)=>{
+      res.redirect('/todo');
+      console.log(error);
+      console.log(req.body.todo);
+    });
 });
 
 app.get('/register', (req, res) => {
