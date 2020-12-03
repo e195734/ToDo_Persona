@@ -9,7 +9,11 @@
     <h1>ToDoリスト</h1>
     <ul type="disc">
       <% ToDoList.forEach((todo) => { %>
-        <li><%= todo.todo %></li>
+        <li><%= todo.todo %>
+          <form action="/delete/<%=todo.id%>" method="post">
+            <input type="submit" value="削除">
+          </form>
+        </li>
       <% }) %>
     </ul>
     <form action="/add" method="post" id="add-list">
