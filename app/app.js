@@ -40,6 +40,16 @@ app.post('/add',(req,res)=>{
   });
 });
 
+app.post('/delete/:id',(req,res) => {
+  connection.query(
+    'DELETE FROM ToDoList WHERE id = ?',
+    [req.params.id],
+    (error,results)=>{
+      res.redirect('/todo');
+    }
+    );
+});
+
 app.get('/register', (req, res) => {
   res.render('register.ejs');
 });
