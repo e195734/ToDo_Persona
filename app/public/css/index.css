@@ -1,0 +1,31 @@
+body {
+    background-color: #B5CEE4;
+  }
+
+a {
+    font-size: 20px;
+  }
+
+button.login-button {
+    font-size: 1.3sem;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 100px 20px 100px 200px;
+    background-color: #EAEAE0;
+    }
+
+button.register-button {
+    font-size: 1.3sem;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 100px 20px 100px 20px;
+    background-color: #EAEAE0;
+    }
+
+button.todo-button {
+    font-size: 1.3sem;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 100px 20px 100px 20px;
+    background-color: #EAEAE0;
+    }

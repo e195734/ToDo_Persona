@@ -1,8 +1,11 @@
+body {
+    background-color: #B5CEE4;
+  }
+
 h1 {
     font-size: 30px;
     font-family: "Arial Black";
-}
-
+  }
 
 form dl dt {
     font-size: 18px;
@@ -11,15 +14,16 @@ form dl dt {
     padding:10px 0;
     float: left;
     clear:both;
-}
+  }
+
 form dl dd{
     padding:10px 0;
   }
-
 
 button.register-button {
     font-size: 1.3sem;
     font-weight: bold;
     padding: 10px 20px;
-    }
+    background-color: #EAEAE0;
+  }
     

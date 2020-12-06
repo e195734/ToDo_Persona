@@ -1,0 +1,20 @@
+body {
+    background-color: #B5CEE4;
+  }
+
+h1 {
+    font-size: 30px;
+    font-family: "Arial Black";
+  }
+
+ul {
+    font-size: 18px;
+    font-family: "Arial";
+  }
+
+button.register-button {
+    font-size: 1.3sem;
+    font-weight: bold;
+    padding: 4px 20px;
+    background-color: #EAEAE0;
+    }
