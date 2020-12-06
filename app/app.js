@@ -22,16 +22,16 @@ app.get('/login', (req, res) => {
 
 app.get('/todo', (req, res) => {
   connection.query(
-    'SELECT * FROM ToDoList', 
+    'SELECT * FROM id_test', 
     (error, results,fields) => {
-      res.render('todo.ejs',{ToDoList:results});//ejsに値を渡してhtmlを生成
+      res.render('todo.ejs',{id_test:results});//ejsに値を渡してhtmlを生成
     }
   );
 });
 
 app.post('/add',(req,res)=>{
   connection.query(
-    'INSERT INTO ToDoList values (?)',
+    'INSERT INTO id_test (todo) VALUES (?)',
     [req.body.todo],
     (error,results)=>{
       res.redirect('/todo');
@@ -42,7 +42,7 @@ app.post('/add',(req,res)=>{
 
 app.post('/delete/:id',(req,res) => {
   connection.query(
-    'DELETE FROM ToDoList WHERE id = ?',
+    'DELETE FROM id_test WHERE id = ?',
     [req.params.id],
     (error,results)=>{
       res.redirect('/todo');
@@ -55,4 +55,3 @@ app.get('/register', (req, res) => {
 });
 
 app.listen(3000);
-

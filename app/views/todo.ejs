@@ -8,9 +8,9 @@
   <body>
     <h1>ToDoリスト</h1>
     <ul type="disc">
-      <% ToDoList.forEach((todo) => { %>
+      <% id_test.forEach((todo) => { %>
         <li><%= todo.todo %>
-          <form action="/delete/<%=todo.id%>" method="post">
+          <form action="/delete/<%= todo.id %>" method="post">
             <input type="submit" value="削除">
           </form>
         </li>
