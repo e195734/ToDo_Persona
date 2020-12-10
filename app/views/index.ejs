@@ -6,7 +6,11 @@
   </head>
   <body>
     <a href="login">ログイン</a><br><!--brは改行-->
+    <a href="logout">ログアウト</a><br>
     <a href="register">新規登録</a><br>
     <a href="todo">ToDoに移動</a><br>
+    <% if(typeof uid !== 'undefined' ){%>
+      <p>welcome <%= uid %> !</p>
+    <% } %>
   </body>
 </html>

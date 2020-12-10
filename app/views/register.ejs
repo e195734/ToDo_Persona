@@ -6,14 +6,30 @@
   </head>
   <body>
     <h1>登録</h1>
-    <form action="/register" method="post">
-    　ID
-      <input type="text" id="user-id"><br>
-      password
-      <input type="password" id="password"><br>
+    <form action="/register_account" method="post">
+      <p>
+      ユーザーID<br>
+      <input type="text" id="user-id" name="register_userid" required="required" maxlength="20" pattern="^[0-9A-Za-z]+$" placeholder="半角英数字のみ，20字まで．(例:IamHoge123)">
+      </p>
+      <p>
+      ユーザーネーム<br>
+      <input type="text" id="user-name" name="register_username" required="required" maxlength="20" placeholder="20字まで．(例:hogetarou)">
+      </p>
+      <p>
+      メールアドレス<br>
+      <input type="email" id="user-id" name="register_mail" required="required" placeholder="hoge@hoge.com">
+      </p>
+      <p>
+      password<br>
+      <input type="password" id="password" name="register_password" required="required" maxlength="20" pattern="^[0-9A-Za-z]+$" placeholder="半角英数字のみ．20字まで．(例:hoge1234)">
       <button type="submit"> 登録</button>
+      </p>
     </form>
     または
     <a href="login">ログイン</a>
+    <% if(typeof r_log !== 'undefined' ){%>
+    <p><%= r_log %></p>
+    <% } %>
+    <a href="/">トップページ</a><br>
   </body>
 </html>
