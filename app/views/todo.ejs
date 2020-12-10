@@ -6,15 +6,47 @@
     <script type="text/javascript" src="../scripts/todo.js"></script>
   </head>
   <body>
-    <h1>ToDoリスト</h1>
-    <ul type="disc">
-      <% ToDoList.forEach((todo) => { %>
-        <li><%= todo.todo %></li>
-      <% }) %>
-    </ul>
-    <form action="/add" method="post" id="add-list">
+    <h1>あなたのリスト一覧</h1>
+    <table>
+      <% if(typeof u_todo_list !== 'undefined'){ %>
+      <% u_todo_list.forEach((tablist) => { %>
+      <tr>
+        <td>
+          <%= tablist.list_name %>
+        </td>
+        <td>
+          <form action="/todo_choise_list" method="post" id="c_list">
+            <input type="hidden" id="c_list" name="c_list" value="<%= tablist.list_name %>">
+            <button type="submit" id="c_list">選択</button>
+          </form>
+        </td>
+      </tr>
+      <% }); %>
+      <% } %>
+    </table>
+
+    <h2>ToDoリスト</h2>
+    <table>
+      <% if(typeof ToDo !== 'undefined'){ %>
+      <% ToDo.forEach((todo) => { %>
+      <tr>
+        <td>
+          <%= todo.todo %>
+        </td>
+        <td>
+          <form action="/delete_todo" method="post" id="delete-list">
+            <input type="hidden" id="toudou" name="todo" value="<%= todo.todo %>">
+            <button type="submit" id="delete-list">削除</button>
+          </form>
+        </td>
+      </tr>
+      <% }); %>
+      <% } %>
+    </table>
+    
+    <form action="/add_todo" method="post" id="add-list">
       <input type="text" id="todo" name="todo">
-      <button type="submit" id="add-list"> 登録</button>
+      <button type="submit" id="add-list">登録</button>
     </form>
   </body>
 </html>
