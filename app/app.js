@@ -26,7 +26,7 @@ app.use(session({ //sessionの設定
 const connection = mysql.createConnection({ //mysql接続の初期化
   host: 'localhost',
   user: 'root',　//dbのuser
-  password: '1234',//dbのpassword
+  password: 'EW4bH2hq',//dbのpassword
   database: 'test'//database
 });
 
