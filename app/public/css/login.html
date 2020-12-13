@@ -7,16 +7,22 @@
   </head>
   <body>
     <h1>ログイン</h1>
-    <form action="/login" method="post">        
+    <form action="/login_account" method="post" id="login">
       <dl>
-        <dt>ID</dt>
-        <dd><input type="text" id="user-id"></dd>
+        <dt>ユーザーID</dt>
+        <dd><input type="text" id="user-id" name="userid" required="required" maxlength="20" pattern="^[0-9A-Za-z]+$" placeholder="userid">
+        </dd>
         <dt>password</dt>
-        <dd><input type="password" id="password"></dd>
+        </dd><input type="password" id="password" name="password" required="required" maxlength="20" pattern="^[0-9A-Za-z]+$" placeholder="passwprd">
+        </dd>
       </dl>
       <button class="login-button" type="submit"> ログイン</button>
     </form>
     または
-    <a href="register">登録</a>
+    <button class="goto-register-button" href="register">登録</button> <br>
+    <button class="goto-index-button" href="/">トップページ</button><br>
+    <% if(typeof l_log !== 'undefined' ){%>
+      <p><%= l_log %></p>
+    <% } %>
   </body>
 </html>

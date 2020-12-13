@@ -6,7 +6,7 @@ a {
     font-size: 20px;
   }
 
-button.login-button {
+button.goto-login-button {
     font-size: 1.3sem;
     font-weight: bold;
     padding: 10px 20px;
@@ -14,7 +14,15 @@ button.login-button {
     background-color: #EAEAE0;
     }
 
-button.register-button {
+button.goto-logout-button {
+  font-size: 1.3sem;
+  font-weight: bold;
+  padding: 10px 20px;
+  margin: 100px 20px 100px 20px;
+  background-color: #EAEAE0;
+  }
+
+button.goto-register-button {
     font-size: 1.3sem;
     font-weight: bold;
     padding: 10px 20px;
@@ -22,7 +30,7 @@ button.register-button {
     background-color: #EAEAE0;
     }
 
-button.todo-button {
+button.goto-todo-button {
     font-size: 1.3sem;
     font-weight: bold;
     padding: 10px 20px;
