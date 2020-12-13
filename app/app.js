@@ -4,13 +4,15 @@ const bodyParser = require('body-parser');
 const app = express();
 const bcrypt = require('bcrypt');
 var session = require('express-session');
-const { render } = require('ejs');
+const ejs = require('ejs');
 
 login_flag = false;
 
 app.set('trust proxy', 1);
+app.set('ejs',ejs.renderFile);
+app.use(express.static('public'));
 
-app.use(session({
+app.use(session({ //sessionの設定
   secret: 'toudou',
   resave: false,
   saveUninitialized: false,
@@ -24,11 +26,9 @@ app.use(session({
 const connection = mysql.createConnection({ //mysql接続の初期化
   host: 'localhost',
   user: 'root',　//dbのuser
-  password: 'EW4bH2hq',//dbのpassword
+  password: '1234',//dbのpassword
   database: 'test'//database
 });
-
-app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -78,59 +78,7 @@ app.get('/logout',(req,res) => {
   res.redirect('/');
 });
 
-/*
-app.get('/todo', (req, res) => {
-  user_todo_list = null;
-  console.log(req.session.username);
-  if(typeof req.session.username !== 'undefined'){
-    console.log('hogehoge');
-    var_todo_user_list = 'select list_name from manage_ToDoList where user_id=?';
-    connection.query(var_todo_user_list,req.session.username,(error, results) =>{
-      console.log(error);
-      console.log(results);
-      console.log('b');
-      user_todo_list = results;
-    });
-    if(typeof listname === 'undefined'){
-      res.render('todo.ejs',{u_todo_list:user_todo_list});//ejsに値を渡してhtmlを生成
-    }else{
-      res.render('todo.ejs',{user_todo_list:user_todo_list,ToDo:list_data});//ejsに値を渡してhtmlを生成
-    }
-    console.log('a');
-    console.log(user_todo_list);
-    console.log(list_data);
-  }else{
-    res.redirect('/');
-  }
-});
-*/
 
-/*
-app.get('/todo',preP1,preP2);
-function preP1(req,res,next){
-  user_todo_list = null;
-  if(typeof req.session.username !== 'undefined'){
-    console.log('hogehoge');
-    var_todo_user_list = 'select list_name from manage_ToDoList where user_id=?';
-    connection.query(var_todo_user_list,req.session.username,(error, results) =>{
-      console.log(error);
-      console.log(results);
-      console.log('b');
-      user_todo_list = results;
-      next();
-    });
-  }else{
-    res.redirect('/');
-  }
-}
-function preP2(req,res){
-  if(typeof listname === 'undefined'){
-    res.render('todo.ejs',{u_todo_list:user_todo_list});//ejsに値を渡してhtmlを生成
-  }else{
-    res.render('todo.ejs',{user_todo_list:user_todo_list,ToDo:list_data});//ejsに値を渡してhtmlを生成
-  }
-}
-*/
 app.get('/todo',tp1,tp2,tp3);
 function tp1(req,res,next){
   if(typeof req.session.username !== 'undefined'){
