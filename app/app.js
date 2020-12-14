@@ -26,8 +26,8 @@ app.use(session({ //sessionの設定
 const connection = mysql.createConnection({ //mysql接続の初期化
   host: 'localhost',
   user: 'root',　//dbのuser
-  password: 'EW4bH2hq',//dbのpassword
-  database: 'test'//database
+  password: 'EW4bH2hq',//dbのpassword   ローカル環境の設定から元に戻してgitに上げるのを忘れないように！！！！
+  database: 'ToDoList'//database   ここもToDoListに変えてからgitにあげな！！！
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -49,7 +49,7 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login_account',(req,res) => {
-  var_sql_login = "select * from account_test where user_id=?;";
+  var_sql_login = "select * from ManageAccount where user_id=?;";
   var_value_login = [req.body.userid];
   connection.query(var_sql_login,var_value_login,(error,results)=>{
     if(results.length == 0){
@@ -88,7 +88,7 @@ function tp1(req,res,next){
   }
 }
 function tp2(req,res,next){
-    var_todo_user_list = 'select list_name from manage_ToDoList where user_id=?';
+    var_todo_user_list = 'select list_name from ManageLists where user_id=?';
     connection.query(var_todo_user_list,req.session.username,(error, results) =>{
       user_todo_list = results;
       console.log(user_todo_list);
@@ -98,7 +98,7 @@ function tp2(req,res,next){
 function tp3(req,res){
   if(typeof list_data !== 'undefined'){
     console.log(list_data);
-    res.render('todo.ejs',{u_todo_list:user_todo_list,ToDo:list_data});
+    res.render('todo.ejs',{u_todo_list:user_todo_list,ToDo:list_data,NowList:list_n});
   }else{
     res.render('todo.ejs',{u_todo_list:user_todo_list});
   }
@@ -106,7 +106,7 @@ function tp3(req,res){
 
 app.post('/add_todo',todo_ad,todo_addl);
 function todo_ad(req,res,next){
-  todo_ad_sql = 'INSERT INTO '+connection.escape(listname)+' values (?)';
+  todo_ad_sql = 'INSERT INTO '+connection.escape(listname)+' (todo) values (?)';
   todo_ad_sql = todo_ad_sql.replace(/'/g,'');
   connection.query(todo_ad_sql,[req.body.todo],(error,results)=>{
     next();
@@ -117,19 +117,21 @@ function todo_ad(req,res,next){
 
 app.post('/delete_todo',todo_dlt,todo_addl);
 function todo_dlt(req,res,next){
-  todo_dlt_sql = 'DELETE FROM '+connection.escape(listname)+' WHERE todo=?';
+  todo_dlt_sql = 'DELETE FROM '+connection.escape(listname)+' WHERE todo_id=?';
   todo_dlt_sql = todo_dlt_sql.replace(/'/g,'');
-  connection.query(todo_dlt_sql,[req.body.todo],(error,results)=>{
+  connection.query(todo_dlt_sql,[req.body.todo_id],(error,results)=>{
     next();
     console.log(error);
-    console.log(req.body.todo);
+    console.log(req.body.todo_id);
   });
 }
 
 app.post('/todo_choise_list',todo_addl);
 function todo_addl(req,res){
   if(req.body.c_list != null){
-    listname = req.body.c_list;
+    list_n = req.body.c_list;
+    listname = req.body.c_list+'_'+req.session.username;
+    listname = listname.replace(/'/g,'');
   }
   var_todo = 'SELECT * FROM '+connection.escape(listname);
   var_todo = var_todo.replace(/'/g,'');
@@ -156,7 +158,7 @@ app.get('/register', (req, res) => {
 
 app.post('/register_account',(req,res) =>{
   pass_hash = bcrypt.hashSync(req.body.register_password, 10);
-  var_sql_register = "insert into account_test (user_id,user_name,mail_address,password) values (?);";
+  var_sql_register = "insert into ManageAccount(user_id,user_name,mail_address,password) values (?);";
   var_values_register = [req.body.register_userid, req.body.register_username, req.body.register_mail, pass_hash];
   connection.query(var_sql_register, [var_values_register],(error,results)=>{
     if(error){

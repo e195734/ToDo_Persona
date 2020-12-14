@@ -24,8 +24,10 @@
       <% }); %>
       <% } %>
     </table>
-
-    <h2>ToDoリスト</h2>
+    <% if(typeof NowList !== 'undefined'){ %>
+    <p>現在表示しているリストは<%= NowList %>です！</p>
+    <% } %>
+    <h2>ToDo</h2>
     <table>
       <% if(typeof ToDo !== 'undefined'){ %>
       <% ToDo.forEach((todo) => { %>
@@ -35,7 +37,7 @@
         </td>
         <td>
           <form action="/delete_todo" method="post" id="delete-list">
-            <input type="hidden" id="toudou" name="todo" value="<%= todo.todo %>">
+            <input type="hidden" id="toudou" name="todo_id" value="<%= todo.todo_id %>">
             <button type="submit" id="delete-list">削除</button>
           </form>
         </td>
