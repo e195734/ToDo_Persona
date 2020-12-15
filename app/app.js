@@ -7,6 +7,7 @@ var session = require('express-session');
 const ejs = require('ejs');
 
 login_flag = false;
+drop_tList_flag = false; 
 
 app.set('trust proxy', 1);
 app.set('ejs',ejs.renderFile);
@@ -26,7 +27,7 @@ app.use(session({ //sessionの設定
 const connection = mysql.createConnection({ //mysql接続の初期化
   host: 'localhost',
   user: 'root',　//dbのuser
-  password: 'EW4bH2hq',//dbのpassword   ローカル環境の設定から元に戻してgitに上げるのを忘れないように！！！！
+  password: 'EW4bH2hq',//dbのpassword   ローカル環境の設定から元に戻してgitに上げるのを忘れないように！！！！EW4bH2hq
   database: 'ToDoList'//database   ここもToDoListに変えてからgitにあげな！！！
 });
 
@@ -115,6 +116,42 @@ function tlist_add1(req,res,next){
   });
 }
 
+app.post('/drop_tList',tlist_dlt1,tlist_dlt2);
+function tlist_dlt2(req,res){
+  tlist_drop_sql = 'delete from ManageLists where list_id=?';
+  connection.query(tlist_drop_sql,[drop_listid],(error,result) => {
+    if(error){
+      console.log('error -> delete tlist at MagageLists');
+      console.log(error);
+    }
+    if(result){
+      console.log('delete tlist at MagageLists');
+    }
+    drop_tList_flag = true;
+    res.redirect('/todo');
+  });
+}
+function tlist_dlt1(req,res,next){
+  drop_listid = req.body.c_list+'_'+req.session.username;
+  drop_listid = drop_listid.replace(/'/g,'');
+  drop_tlist_sql = 'drop table '+drop_listid;
+  drop_tlist_sql = drop_tlist_sql.replace(/'/g,'');
+
+  connection.query(drop_tlist_sql,(error,results) => {
+    console.log(error);
+    console.log(results);
+    if(error){
+      console.log('drop_tlist error!')
+      console.log(error);
+      res.redirect('/todo');
+    }
+    if(results){
+      next();
+    }
+  });
+}
+
+
 app.get('/todo',tp1,tp2,tp3);
 function tp1(req,res,next){
   if(typeof req.session.username !== 'undefined'){
@@ -132,11 +169,12 @@ function tp2(req,res,next){
     });
 }
 function tp3(req,res){
-  if(typeof list_data !== 'undefined'){
+  if(typeof list_data === 'undefined' || drop_tList_flag == true){
+    drop_tList_flag = false;
+    res.render('todo.ejs',{u_todo_list:user_todo_list});
+  }else{
     console.log(list_data);
     res.render('todo.ejs',{u_todo_list:user_todo_list,ToDo:list_data,NowList:list_n});
-  }else{
-    res.render('todo.ejs',{u_todo_list:user_todo_list});
   }
 }
 
