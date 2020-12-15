@@ -78,6 +78,42 @@ app.get('/logout',(req,res) => {
   res.redirect('/');
 });
 
+app.post('/add_tList',tlist_add1,tlist_add2);
+function tlist_add2(req,res){
+  console.log(add_list_id);
+  tlist_ad_sql = 'INSERT INTO ManageLists value (?)';
+  tlist_ad_val = [req.session.username, add_list_id, add_list_n];
+  connection.query(tlist_ad_sql,[tlist_ad_val],(error,result) => {
+    if(error){
+      console.log('error -> add tlist to MagageLists');
+      console.log(error);
+    }
+    if(result){
+      console.log('add tlist to MagageLists');
+    }
+    res.redirect('/todo');
+  });
+}
+function tlist_add1(req,res,next){
+  if(req.body.tlist != null){
+    add_list_n = req.body.tlist;
+    add_list_id = req.body.tlist+'_'+req.session.username;
+    add_list_id = add_list_id.replace(/'/g,'');
+  }
+  create_tlist = 'create table '+add_list_id+'(todo_id int not null primary key auto_increment,todo varchar(100) not null)';
+  connection.query(create_tlist,(error,results) => {
+    console.log(error);
+    console.log(results);
+    if(error){
+      console.log('create_tlist error!')
+      console.log(error);
+      res.redirect('/todo');
+    }
+    if(results){
+      next();
+    }
+  });
+}
 
 app.get('/todo',tp1,tp2,tp3);
 function tp1(req,res,next){
@@ -88,7 +124,7 @@ function tp1(req,res,next){
   }
 }
 function tp2(req,res,next){
-    var_todo_user_list = 'select list_name from ManageLists where user_id=?';
+    var_todo_user_list = 'select * from ManageLists where user_id=?';
     connection.query(var_todo_user_list,req.session.username,(error, results) =>{
       user_todo_list = results;
       console.log(user_todo_list);

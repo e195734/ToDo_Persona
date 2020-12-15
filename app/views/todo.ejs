@@ -24,6 +24,12 @@
       <% }); %>
       <% } %>
     </table>
+
+    <form action="/add_tList" method="post" id="add-tlist">
+      <input type="text" id="tlist" name="tlist" required="required" maxlength="20" placeholder="20字まで．(例:HogeList1)">
+      <button type="submit" id="add-tlist">リストを登録</button>
+    </form>
+
     <% if(typeof NowList !== 'undefined'){ %>
     <p>現在表示しているリストは<%= NowList %>です！</p>
     <% } %>
@@ -48,7 +54,8 @@
     
     <form action="/add_todo" method="post" id="add-list">
       <input type="text" id="todo" name="todo">
-      <button type="submit" id="add-list">登録</button>
+      <button type="submit" id="add-list">ToDoを登録</button>
     </form>
+    <a href="/">トップページに戻る</a><br>
   </body>
 </html>
