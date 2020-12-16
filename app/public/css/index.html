@@ -6,8 +6,12 @@
     <link rel="stylesheet" href="./index.css"/>
   </head>
   <body>
-    <button class="login-button" href="login"> ログイン</button>
-    <button class="register-button" href="register"> 新規登録</button>
-    <button class="todo-button" href="todo"> ToDoに移動</button>
+    <button class="goto-login-button" href="login">ログイン</button>
+    <button class="goto-logout-button" href="logout">ログアウト</button>
+    <button class="goto-register-button"　href="register">新規登録</button>
+    <button class="goto-todo-button" href="todo">ToDoに移動</button>
+    <% if(typeof uid !== 'undefined' ){%>
+      <p>welcome <%= uid %> !</p>
+    <% } %>
   </body>
 </html>

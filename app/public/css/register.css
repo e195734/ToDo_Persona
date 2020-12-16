@@ -10,20 +10,33 @@ h1 {
 form dl dt {
     font-size: 18px;
     font-family: "Arial";
-    width: 100px;
-    padding:10px 0;
+    width: 130px;
+    padding: 10px 0;
     float: left;
     clear:both;
   }
 
 form dl dd{
-    padding:10px 0;
+    padding: 10px;
   }
 
 button.register-button {
     font-size: 1.3sem;
     font-weight: bold;
-    padding: 10px 20px;
+    padding: 4px 20px;
     background-color: #EAEAE0;
   }
     
+button.goto-login-button {
+  font-size: 1.3sem;
+  font-weight: bold;
+  padding: 4px 20px;
+  background-color: #EAEAE0;
+  }
+
+button.goto-index-button {
+  font-size: 1.3sem;
+  font-weight: bold;
+  padding: 4px 20px;
+  background-color: #EAEAE0;
+  }
