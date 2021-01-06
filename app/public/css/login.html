@@ -6,23 +6,25 @@
     <link rel="stylesheet" href="./login.css"/>
   </head>
   <body>
-    <h1>ログイン</h1>
-    <form action="/login_account" method="post" id="login">
-      <dl>
-        <dt>ユーザーID</dt>
-        <dd><input type="text" id="user-id" name="userid" required="required" maxlength="20" pattern="^[0-9A-Za-z]+$" placeholder="userid">
-        </dd>
-        <dt>password</dt>
-        </dd><input type="password" id="password" name="password" required="required" maxlength="20" pattern="^[0-9A-Za-z]+$" placeholder="passwprd">
-        </dd>
-      </dl>
-      <button class="login-button" type="submit"> ログイン</button>
-    </form>
-    または
-    <button class="goto-register-button" href="register">登録</button> <br>
-    <button class="goto-index-button" href="/">トップページ</button><br>
-    <% if(typeof l_log !== 'undefined' ){%>
-      <p><%= l_log %></p>
-    <% } %>
+    <div class="inner">
+      <h1>ログイン</h1>
+      <form action="/login_account" method="post" id="login">
+        <p>
+        ユーザーID<br>
+        <input type="text" id="user-id" name="userid" required="required" maxlength="20" pattern="^[0-9A-Za-z]+$" placeholder="userid">
+        </p>
+        <p>
+        password<br>
+        <input type="password" id="password" name="password" required="required" maxlength="20" pattern="^[0-9A-Za-z]+$" placeholder="passwprd">
+        </p>
+        <button class="login-button" type="submit"> ログイン</button>
+      </form>
+      または
+      <button class="goto-register-button" href="register">登録</button><br>
+      <button class="goto-index-button" href="/">トップページ</button><br>
+      <% if(typeof l_log !== 'undefined' ){%>
+        <p><%= l_log %></p>
+      <% } %>
+    </div>
   </body>
 </html>
