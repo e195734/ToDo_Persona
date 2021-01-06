@@ -38,10 +38,19 @@
     <% if(typeof ToDo !== 'undefined'){ %>
     <h2>ToDo</h2>
     <table>
+      <tr>
+        <td>[TODO]</td><td>[LABEL]</td><td>[DESCRIPTION]</td><td>[erase button]</td>
+      </tr>
       <% ToDo.forEach((todo) => { %>
       <tr>
         <td>
           <%= todo.todo %>
+        </td>
+        <td>
+          <%= todo.label %>
+        </td>
+        <td>
+          <%= todo.description %>
         </td>
         <td>
           <form action="/delete_todo" method="post" id="delete-list">
@@ -54,7 +63,9 @@
     </table>
     
     <form action="/add_todo" method="post" id="add-list">
-      <input type="text" id="todo" name="todo" required="required" maxlength="100" placeholder="100字まで．(例:OSの課題をやる。)">
+      <input type="text" id="todo" name="todo" required="required" maxlength="100" placeholder="100字まで．(例:OSの課題1.1をやる！)"><br>
+      <input type="text" id="todo" name="label" required="required" maxlength="100" placeholder="100字まで．(例:OS)"><br>
+      <input type="text" id="todo" name="description" required="required" maxlength="200" placeholder="200字まで．(例:今日中にやる！)"><br>
       <button type="submit" id="add-list">ToDoを登録</button>
     </form>
     <% } %>
