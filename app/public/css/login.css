@@ -24,6 +24,10 @@ form {
   border: 1px solid black;
 }
 
+input{
+  width: 250px;
+}
+
 button.login-button {
     font-size: 1.3sem;
     font-weight: bold;
