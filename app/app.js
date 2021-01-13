@@ -27,8 +27,8 @@ app.use(session({ //sessionの設定
 const connection = mysql.createConnection({ //mysql接続の初期化
   host: 'localhost',
   user: 'root',　//dbのuser
-  password: '1234',//dbのpassword   ローカル環境の設定から元に戻してgitに上げるのを忘れないように！！！！EW4bH2hq
-  database: 'test'//database   ここもToDoListに変えてからgitにあげな！！！
+  password: 'EW4bH2hq',//dbのpassword   ローカル環境の設定から元に戻してgitに上げるのを忘れないように！！！！EW4bH2hq
+  database: 'ToDoList'//database   ここもToDoListに変えてからgitにあげな！！！
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -71,7 +71,7 @@ app.post('/login_account',(req,res) => {
   });
 });
 
-app.get('/logout',(req,res) => {
+app.get('/logout_account',(req,res) => {
   req.session.destroy(function (err){
     console.log('logout!');
   });
@@ -247,6 +247,11 @@ app.post('/register_account',(req,res) =>{
     res.redirect('/register')
   });
 });
+
+app.get('/logout', (req, res) => {
+  res.render('logout.ejs');
+});
+
 
 app.listen(3000);
 
