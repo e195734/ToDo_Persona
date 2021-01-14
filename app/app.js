@@ -71,7 +71,7 @@ app.post('/login_account',(req,res) => {
   });
 });
 
-app.get('/logout',(req,res) => {
+app.get('/logout_account',(req,res) => {
   req.session.destroy(function (err){
     console.log('logout!');
   });
@@ -101,7 +101,7 @@ function tlist_add1(req,res,next){
     add_list_id = req.body.tlist+'_'+req.session.username;
     add_list_id = add_list_id.replace(/'/g,'');
   }
-  create_tlist = 'create table '+add_list_id+'(todo_id int not null primary key auto_increment,todo varchar(100) not null)';
+  create_tlist = 'create table '+add_list_id+'(todo_id int not null primary key auto_increment,todo varchar(100) not null, description varchar(200), label varchar(100))';
   connection.query(create_tlist,(error,results) => {
     console.log(error);
     console.log(results);
@@ -180,9 +180,10 @@ function tp3(req,res){
 
 app.post('/add_todo',todo_ad,todo_addl);
 function todo_ad(req,res,next){
-  todo_ad_sql = 'INSERT INTO '+connection.escape(listname)+' (todo) values (?)';
+  todo_ad_sql = 'INSERT INTO '+connection.escape(listname)+' (todo,description,label) values (?)';
   todo_ad_sql = todo_ad_sql.replace(/'/g,'');
-  connection.query(todo_ad_sql,[req.body.todo],(error,results)=>{
+  todo_ad_val = [req.body.todo, req.body.description, req.body.label];
+  connection.query(todo_ad_sql,[todo_ad_val],(error,results)=>{
     next();
     console.log(error);
     console.log(req.body.todo);
@@ -246,6 +247,11 @@ app.post('/register_account',(req,res) =>{
     res.redirect('/register')
   });
 });
+
+app.get('/logout', (req, res) => {
+  res.render('logout.ejs');
+});
+
 
 app.listen(3000);
 
