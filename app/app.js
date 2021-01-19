@@ -28,7 +28,7 @@ const connection = mysql.createConnection({ //mysql接続の初期化
   host: 'localhost',
   user: 'root',　//dbのuser
   password: 'EW4bH2hq',//dbのpassword   ローカル環境の設定から元に戻してgitに上げるのを忘れないように！！！！EW4bH2hq
-  database: 'ToDoList'//database   ここもToDoListに変えてからgitにあげな！！！
+  database: 'ToDoListt'//database   ここもToDoListに変えてからgitにあげな！！！
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -42,10 +42,14 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  if(typeof login_log === 'undefined'){
-    res.render('login.ejs');
+  if(typeof req.session.username !== 'undefined'){
+    res.redirect('/')
   }else{
-    res.render('login.ejs',{l_log:login_log});
+    if(typeof login_log === 'undefined'){
+      res.render('login.ejs');
+    }else{
+      res.render('login.ejs',{l_log:login_log});
+    }
   }
 });
 
@@ -164,7 +168,6 @@ function tp2(req,res,next){
     var_todo_user_list = 'select * from ManageLists where user_id=?';
     connection.query(var_todo_user_list,req.session.username,(error, results) =>{
       user_todo_list = results;
-      console.log(user_todo_list);
       next();
     });
 }
@@ -173,7 +176,6 @@ function tp3(req,res){
     drop_tList_flag = false;
     res.render('todo.ejs',{u_todo_list:user_todo_list});
   }else{
-    console.log(list_data);
     res.render('todo.ejs',{u_todo_list:user_todo_list,ToDo:list_data,NowList:list_n});
   }
 }
@@ -213,12 +215,6 @@ function todo_addl(req,res){
   connection.query(var_todo,(error, results,fields) => {
     list_data = results;
     res.redirect('/todo');
-    console.log('---tcl---')
-    console.log(error);
-    console.log(results);
-    console.log(listname);
-    console.log(list_data);
-    console.log('---end-cl---')
   });
 }
 
@@ -249,7 +245,11 @@ app.post('/register_account',(req,res) =>{
 });
 
 app.get('/logout', (req, res) => {
-  res.render('logout.ejs');
+  if(typeof req.session.username !== 'undefined'){
+    res.redirect('/')
+  }else{
+    res.render('logout.ejs');
+  }
 });
 
 
