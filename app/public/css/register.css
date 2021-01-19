@@ -1,8 +1,8 @@
-body {
-    background-color: #B5CEE4;
-  }
+body{
+  background-color: #B5CEE4;
+}
 
-h1 {
+h1{
   position: absolute;
   top: -15%;
   left: 50%;
@@ -12,11 +12,11 @@ h1 {
   width: 280px;
 }
 
-form {
-    font-size: 18px;
-    font-family: "Arial";
-    clear:both;
-  }
+form{
+  font-size: 18px;
+  font-family: "Arial";
+  clear:both;
+}
 
 .inner{
   position: absolute;
@@ -32,24 +32,24 @@ input{
   width: 250px;
 }
 
-button.register-button {
+button.register-button{
   width: 255px;
-    font-size: 1.3sem;
-    font-weight: bold;
-    padding: 4px 20px;
-    background-color: #EAEAE0;
-  }
+  font-size: 1.3sem;
+  font-weight: bold;
+  padding: 4px 20px;
+  background-color: #EAEAE0;
+}
     
-button.goto-login-button {
+button.goto-login-button{
   font-size: 1.3sem;
   font-weight: bold;
   padding: 4px 20px;
   background-color: #EAEAE0;
-  }
+}
 
-button.goto-index-button {
+button.goto-index-button{
   font-size: 1.3sem;
   font-weight: bold;
   padding: 4px 20px;
   background-color: #EAEAE0;
-  }
+}
