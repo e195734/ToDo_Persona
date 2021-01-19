@@ -3,14 +3,18 @@ body {
   }
 
 h1 {
-    font-size: 30px;
-    font-family: "Arial Black";
-  }
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%);
+  font-size: 30px;
+  font-family: "Arial Black";
+}
 
 form {
     font-size: 18px;
     font-family: "Arial";
-    padding: 10px 0;
     clear:both;
   }
 
@@ -29,6 +33,7 @@ input{
 }
 
 button.login-button {
+  width: 255px;
     font-size: 1.3sem;
     font-weight: bold;
     padding: 4px 20px;
