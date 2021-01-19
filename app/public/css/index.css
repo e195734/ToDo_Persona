@@ -1,48 +1,49 @@
-body {
-    background-color: #B5CEE4;
-  }
-
-.inner{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translateY(-50%) translateX(-50%);
-    transform: translateY(-50%) translateX(-50%);
-    padding: 20px;
-    border: 1px solid black;
-  }
-button{
-    width: 250px;
+body{
+  background-color: #B5CEE4;
 }
 
-button.goto-login-button {
-    font-size: 1.3sem;
-    font-weight: bold;
-    padding: 10px 20px;
-    margin: 10px;
-    background-color: #EAEAE0;
-    }
+.inner{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%);
+  padding: 20px;
+  border: 1px solid black;
+}
 
-button.goto-logout-button {
+button{
+  width: 250px;
+}
+
+button.goto-login-button{
   font-size: 1.3sem;
   font-weight: bold;
   padding: 10px 20px;
   margin: 10px;
   background-color: #EAEAE0;
-  }
+}
 
-button.goto-register-button {
-    font-size: 1.3sem;
-    font-weight: bold;
-    padding: 10px 20px;
-    margin: 10px;
-    background-color: #EAEAE0;
-    }
+button.goto-logout-button{
+  font-size: 1.3sem;
+  font-weight: bold;
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #EAEAE0;
+}
 
-button.goto-todo-button {
-    font-size: 1.3sem;
-    font-weight: bold;
-    padding: 10px 20px;
-    margin: 10px;
-    background-color: #EAEAE0;
-    }
+button.goto-register-button{
+  font-size: 1.3sem;
+  font-weight: bold;
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #EAEAE0;
+}
+
+button.goto-todo-button{
+  font-size: 1.3sem;
+  font-weight: bold;
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #EAEAE0;
+}
