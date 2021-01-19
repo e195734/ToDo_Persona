@@ -49,8 +49,8 @@ input{
 
 button.login-button{
   width: 255px;
-  font-size: 1.3sem;
+  font-size: 15px;
   font-weight: bold;
-  padding: 4px;
+  padding: 10px;
   background-color: #EAEAE0;
 }

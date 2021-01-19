@@ -3,7 +3,7 @@ body{
 }
 .title{
   position: absolute;
-  top: 10%;
+  top: 15%;
   left: 50%;
   -webkit-transform: translateY(-50%) translateX(-50%);
   transform: translateY(-50%) translateX(-50%);
@@ -32,7 +32,7 @@ form{
 
 .link{
   position: absolute;
-  top: 90%;
+  top: 85%;
   left: 50%;
   -webkit-transform: translateY(-50%) translateX(-50%);
   transform: translateY(-50%) translateX(-50%);
@@ -44,8 +44,8 @@ input{
 
 button.register-button{
   width: 255px;
-  font-size: 1.3sem;
+  font-size: 15px;
   font-weight: bold;
-  padding: 4px 20px;
+  padding: 10px;
   background-color: #EAEAE0;
 }
