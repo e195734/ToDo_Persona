@@ -51,20 +51,6 @@ button.login-button{
   width: 255px;
   font-size: 1.3sem;
   font-weight: bold;
-  padding: 4px 20px;
-  background-color: #EAEAE0;
-}
-    
-button.goto-register-button{
-  font-size: 1.3sem;
-  font-weight: bold;
-  padding: 4px 20px;
-  background-color: #EAEAE0;
-}
-
-button.goto-index-button{
-  font-size: 1.3sem;
-  font-weight: bold;
-  padding: 4px 20px;
+  padding: 4px;
   background-color: #EAEAE0;
 }
