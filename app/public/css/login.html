@@ -6,23 +6,24 @@
     <link rel="stylesheet" href="./login.css"/>
   </head>
   <body>
+    <div class="title"><h1>ログイン</h1></div>
     <div class="inner">
-      <h1>ログイン</h1>
       <form action="/login_account" method="post" id="login">
         <p>
         ユーザーID<br>
         <input type="text" id="user-id" name="userid" required="required" maxlength="20" pattern="^[0-9A-Za-z]+$" placeholder="userid">
         </p>
         <p>
-        password<br>
+        パスワード<br>
         <input type="password" id="password" name="password" required="required" maxlength="20" pattern="^[0-9A-Za-z]+$" placeholder="passwprd">
         </p>
         <button class="login-button" type="submit"> ログイン</button>
       </form>
     </div>
-    または
-    <button class="goto-register-button" href="register">登録</button><br>
-    <button class="goto-index-button" href="/">トップページ</button><br>
+    <div class="link">
+      <a class="goto-register-button" href="register">新規登録ページへ</a>&nbsp;
+      <a class="goto-index-button" href="/">メインページへ</a>
+    </div>
     <% if(typeof l_log !== 'undefined' ){%>
       <p><%= l_log %></p>
     <% } %>

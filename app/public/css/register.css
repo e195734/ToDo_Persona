@@ -1,15 +1,17 @@
 body{
   background-color: #B5CEE4;
 }
-
-h1{
+.title{
   position: absolute;
-  top: -15%;
+  top: 10%;
   left: 50%;
   -webkit-transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%);
+}
+
+h1{
   font-size: 30px;
   font-family: "Arial Black";
-  width: 280px;
 }
 
 form{
@@ -26,6 +28,14 @@ form{
   transform: translateY(-50%) translateX(-50%);
   padding: 20px;
   border: 1px solid black;
+}
+
+.link{
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%);
 }
 
 input{
