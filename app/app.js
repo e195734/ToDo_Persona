@@ -42,10 +42,14 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  if(typeof login_log === 'undefined'){
-    res.render('login.ejs');
+  if(typeof req.session.username !== 'undefined'){
+    res.redirect('/')
   }else{
-    res.render('login.ejs',{l_log:login_log});
+    if(typeof login_log === 'undefined'){
+      res.render('login.ejs');
+    }else{
+      res.render('login.ejs',{l_log:login_log});
+    }
   }
 });
 
@@ -71,13 +75,91 @@ app.post('/login_account',(req,res) => {
   });
 });
 
-app.get('/logout_account',(req,res) => {
+app.get('/logout', (req, res) => {
+  if(typeof req.session.username !== 'undefined'){
+    res.redirect('/');
+  }else{
+    res.render('logout.ejs');
+  }
+});
+
+app.get('/logout_account',LogoutAccount1);
+function LogoutAccount1(req,res){
   req.session.destroy(function (err){
     console.log('logout!');
   });
   login_flag = false;
   res.redirect('/');
-});
+}
+
+app.post('/update_username',UpdateUsername1);
+function UpdateUsername1(req,res){
+  sql_update_username = 'update ManageAccount set user_name='+connection.escape(req.body.new_username)+' where user_id=?;';
+  connection.query(sql_update_username,req.session.username,(error, results) =>{
+    res.redirect('/account_page');
+  });
+}
+
+app.post('/update_mailaddress',UpdateMailAddress1);
+function UpdateMailAddress1(req,res){
+  sql_update_mailaddress = 'update ManageAccount set mail_address='+connection.escape(req.body.new_mailaddress)+' where user_id=?;';
+  connection.query(sql_update_mailaddress,req.session.username,(error, results) =>{
+    res.redirect('/account_page');
+  });
+}
+
+app.get('/account_page',ShowAccountPage1,ShowAccountPage2);
+function ShowAccountPage1(req,res,next){
+  if(typeof req.session.username === 'undefined'){
+    res.redirect('/');
+  }else{
+    next();
+  }
+}
+function ShowAccountPage2(req,res){
+  var_show_account_sql = 'select * from ManageAccount where user_id=?';
+  connection.query(var_show_account_sql,req.session.username,(error, results) =>{
+    account_data = results;
+    res.render('test_account_page.ejs',{a_data:account_data[0]});
+  });
+}
+
+app.get('/delete_account',DelAccount1,DelAccount2,DelAccount3,DelAccount4,LogoutAccount1);
+function DelAccount1(req,res,next){
+  sql_search_del_tbl = 'select list_id from ManageLists where user_id=?';
+  connection.query(sql_search_del_tbl,req.session.username,(error, results) =>{
+    user_tbl = results;
+    console.log(user_tbl);
+    next();
+  });
+}
+function DelAccount2(req,res,next){
+  user_tbl.forEach((tblid) => {
+    console.log(tblid.list_id);
+    drop_tlist_sql = 'drop table '+tblid.list_id;
+    drop_tlist_sql = drop_tlist_sql.replace(/'/g,'');
+    connection.query(drop_tlist_sql,(error,results) => {
+      console.log(error);
+    });
+  });
+  next();
+}
+function DelAccount3(req,res,next){
+  user_tbl.forEach((tblid) => {
+    tlist_drop_sql = 'delete from ManageLists where list_id=?';
+    connection.query(tlist_drop_sql,[tblid.list_id],(error,results) => {
+      console.log(error);
+    });
+  });
+  next();
+}
+function DelAccount4(req,res,next){
+  sql_del_account = 'delete from ManageAccount where user_id=?';
+  connection.query(sql_del_account,[req.session.username],(error,results) => {
+    console.log(error);
+    next();
+  });
+}
 
 app.post('/add_tList',tlist_add1,tlist_add2);
 function tlist_add2(req,res){
@@ -103,8 +185,6 @@ function tlist_add1(req,res,next){
   }
   create_tlist = 'create table '+add_list_id+'(todo_id int not null primary key auto_increment,todo varchar(100) not null, description varchar(200), label varchar(100))';
   connection.query(create_tlist,(error,results) => {
-    console.log(error);
-    console.log(results);
     if(error){
       console.log('create_tlist error!')
       console.log(error);
@@ -151,7 +231,6 @@ function tlist_dlt1(req,res,next){
   });
 }
 
-
 app.get('/todo',tp1,tp2,tp3);
 function tp1(req,res,next){
   if(typeof req.session.username !== 'undefined'){
@@ -164,7 +243,6 @@ function tp2(req,res,next){
     var_todo_user_list = 'select * from ManageLists where user_id=?';
     connection.query(var_todo_user_list,req.session.username,(error, results) =>{
       user_todo_list = results;
-      console.log(user_todo_list);
       next();
     });
 }
@@ -173,7 +251,6 @@ function tp3(req,res){
     drop_tList_flag = false;
     res.render('todo.ejs',{u_todo_list:user_todo_list});
   }else{
-    console.log(list_data);
     res.render('todo.ejs',{u_todo_list:user_todo_list,ToDo:list_data,NowList:list_n});
   }
 }
@@ -213,12 +290,6 @@ function todo_addl(req,res){
   connection.query(var_todo,(error, results,fields) => {
     list_data = results;
     res.redirect('/todo');
-    console.log('---tcl---')
-    console.log(error);
-    console.log(results);
-    console.log(listname);
-    console.log(list_data);
-    console.log('---end-cl---')
   });
 }
 
@@ -247,11 +318,6 @@ app.post('/register_account',(req,res) =>{
     res.redirect('/register')
   });
 });
-
-app.get('/logout', (req, res) => {
-  res.render('logout.ejs');
-});
-
 
 app.listen(3000);
 
