@@ -1,39 +1,49 @@
-body {
-    background-color: #B5CEE4;
-  }
+body{
+  background-color: #B5CEE4;
+}
 
-a {
-    font-size: 20px;
-  }
+.inner{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%);
+  padding: 20px;
+  border: 1px solid black;
+}
 
-button.goto-login-button {
-    font-size: 1.3sem;
-    font-weight: bold;
-    padding: 10px 20px;
-    margin: 100px 20px 100px 200px;
-    background-color: #EAEAE0;
-    }
+button{
+  width: 250px;
+}
 
-button.goto-logout-button {
+button.goto-login-button{
   font-size: 1.3sem;
   font-weight: bold;
-  padding: 10px 20px;
-  margin: 100px 20px 100px 20px;
+  padding: 10px;
+  margin: 10px;
   background-color: #EAEAE0;
-  }
+}
 
-button.goto-register-button {
-    font-size: 1.3sem;
-    font-weight: bold;
-    padding: 10px 20px;
-    margin: 100px 20px 100px 20px;
-    background-color: #EAEAE0;
-    }
+button.goto-logout-button{
+  font-size: 1.3sem;
+  font-weight: bold;
+  padding: 10px;
+  margin: 10px;
+  background-color: #EAEAE0;
+}
 
-button.goto-todo-button {
-    font-size: 1.3sem;
-    font-weight: bold;
-    padding: 10px 20px;
-    margin: 100px 20px 100px 20px;
-    background-color: #EAEAE0;
-    }
+button.goto-register-button{
+  font-size: 1.3sem;
+  font-weight: bold;
+  padding: 10px;
+  margin: 10px;
+  background-color: #EAEAE0;
+}
+
+button.goto-todo-button{
+  font-size: 1.3sem;
+  font-weight: bold;
+  padding: 10px;
+  margin: 10px;
+  background-color: #EAEAE0;
+}
