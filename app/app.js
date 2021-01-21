@@ -4,13 +4,16 @@ const bodyParser = require('body-parser');
 const app = express();
 const bcrypt = require('bcrypt');
 var session = require('express-session');
-const { render } = require('ejs');
+const ejs = require('ejs');
 
 login_flag = false;
+drop_tList_flag = false; 
 
 app.set('trust proxy', 1);
+app.set('ejs',ejs.renderFile);
+app.use(express.static('public'));
 
-app.use(session({
+app.use(session({ //sessionの設定
   secret: 'toudou',
   resave: false,
   saveUninitialized: false,
@@ -24,11 +27,9 @@ app.use(session({
 const connection = mysql.createConnection({ //mysql接続の初期化
   host: 'localhost',
   user: 'root',　//dbのuser
-  password: 'EW4bH2hq',//dbのpassword
-  database: 'test'//database
+  password: 'EW4bH2hq',//dbのpassword   ローカル環境の設定から元に戻してgitに上げるのを忘れないように！！！！EW4bH2hq
+  database: 'ToDoList'//database   ここもToDoListに変えてからgitにあげな！！！
 });
-
-app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -41,15 +42,19 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  if(typeof login_log === 'undefined'){
-    res.render('login.ejs');
+  if(typeof req.session.username !== 'undefined'){
+    res.redirect('/')
   }else{
-    res.render('login.ejs',{l_log:login_log});
+    if(typeof login_log === 'undefined'){
+      res.render('login.ejs');
+    }else{
+      res.render('login.ejs',{l_log:login_log});
+    }
   }
 });
 
 app.post('/login_account',(req,res) => {
-  var_sql_login = "select * from account_test where user_id=?;";
+  var_sql_login = "select * from ManageAccount where user_id=?;";
   var_value_login = [req.body.userid];
   connection.query(var_sql_login,var_value_login,(error,results)=>{
     if(results.length == 0){
@@ -70,67 +75,162 @@ app.post('/login_account',(req,res) => {
   });
 });
 
-app.get('/logout',(req,res) => {
+app.get('/logout', (req, res) => {
+  if(typeof req.session.username !== 'undefined'){
+    res.redirect('/');
+  }else{
+    res.render('logout.ejs');
+  }
+});
+
+app.get('/logout_account',LogoutAccount1);
+function LogoutAccount1(req,res){
   req.session.destroy(function (err){
     console.log('logout!');
   });
   login_flag = false;
   res.redirect('/');
-});
+}
 
-/*
-app.get('/todo', (req, res) => {
-  user_todo_list = null;
-  console.log(req.session.username);
-  if(typeof req.session.username !== 'undefined'){
-    console.log('hogehoge');
-    var_todo_user_list = 'select list_name from manage_ToDoList where user_id=?';
-    connection.query(var_todo_user_list,req.session.username,(error, results) =>{
+app.post('/update_username',UpdateUsername1);
+function UpdateUsername1(req,res){
+  sql_update_username = 'update ManageAccount set user_name='+connection.escape(req.body.new_username)+' where user_id=?;';
+  connection.query(sql_update_username,req.session.username,(error, results) =>{
+    res.redirect('/account_page');
+  });
+}
+
+app.post('/update_mailaddress',UpdateMailAddress1);
+function UpdateMailAddress1(req,res){
+  sql_update_mailaddress = 'update ManageAccount set mail_address='+connection.escape(req.body.new_mailaddress)+' where user_id=?;';
+  connection.query(sql_update_mailaddress,req.session.username,(error, results) =>{
+    res.redirect('/account_page');
+  });
+}
+
+app.get('/account_page',ShowAccountPage1,ShowAccountPage2);
+function ShowAccountPage1(req,res,next){
+  if(typeof req.session.username === 'undefined'){
+    res.redirect('/');
+  }else{
+    next();
+  }
+}
+function ShowAccountPage2(req,res){
+  var_show_account_sql = 'select * from ManageAccount where user_id=?';
+  connection.query(var_show_account_sql,req.session.username,(error, results) =>{
+    account_data = results;
+    res.render('test_account_page.ejs',{a_data:account_data[0]});
+  });
+}
+
+app.get('/delete_account',DelAccount1,DelAccount2,DelAccount3,DelAccount4,LogoutAccount1);
+function DelAccount1(req,res,next){
+  sql_search_del_tbl = 'select list_id from ManageLists where user_id=?';
+  connection.query(sql_search_del_tbl,req.session.username,(error, results) =>{
+    user_tbl = results;
+    console.log(user_tbl);
+    next();
+  });
+}
+function DelAccount2(req,res,next){
+  user_tbl.forEach((tblid) => {
+    console.log(tblid.list_id);
+    drop_tlist_sql = 'drop table '+tblid.list_id;
+    drop_tlist_sql = drop_tlist_sql.replace(/'/g,'');
+    connection.query(drop_tlist_sql,(error,results) => {
       console.log(error);
-      console.log(results);
-      console.log('b');
-      user_todo_list = results;
     });
-    if(typeof listname === 'undefined'){
-      res.render('todo.ejs',{u_todo_list:user_todo_list});//ejsに値を渡してhtmlを生成
-    }else{
-      res.render('todo.ejs',{user_todo_list:user_todo_list,ToDo:list_data});//ejsに値を渡してhtmlを生成
+  });
+  next();
+}
+function DelAccount3(req,res,next){
+  user_tbl.forEach((tblid) => {
+    tlist_drop_sql = 'delete from ManageLists where list_id=?';
+    connection.query(tlist_drop_sql,[tblid.list_id],(error,results) => {
+      console.log(error);
+    });
+  });
+  next();
+}
+function DelAccount4(req,res,next){
+  sql_del_account = 'delete from ManageAccount where user_id=?';
+  connection.query(sql_del_account,[req.session.username],(error,results) => {
+    console.log(error);
+    next();
+  });
+}
+
+app.post('/add_tList',tlist_add1,tlist_add2);
+function tlist_add2(req,res){
+  console.log(add_list_id);
+  tlist_ad_sql = 'INSERT INTO ManageLists value (?)';
+  tlist_ad_val = [req.session.username, add_list_id, add_list_n];
+  connection.query(tlist_ad_sql,[tlist_ad_val],(error,result) => {
+    if(error){
+      console.log('error -> add tlist to MagageLists');
+      console.log(error);
     }
-    console.log('a');
-    console.log(user_todo_list);
-    console.log(list_data);
-  }else{
-    res.redirect('/');
+    if(result){
+      console.log('add tlist to MagageLists');
+    }
+    res.redirect('/todo');
+  });
+}
+function tlist_add1(req,res,next){
+  if(req.body.tlist != null){
+    add_list_n = req.body.tlist;
+    add_list_id = req.body.tlist+'_'+req.session.username;
+    add_list_id = add_list_id.replace(/'/g,'');
   }
-});
-*/
-
-/*
-app.get('/todo',preP1,preP2);
-function preP1(req,res,next){
-  user_todo_list = null;
-  if(typeof req.session.username !== 'undefined'){
-    console.log('hogehoge');
-    var_todo_user_list = 'select list_name from manage_ToDoList where user_id=?';
-    connection.query(var_todo_user_list,req.session.username,(error, results) =>{
+  create_tlist = 'create table '+add_list_id+'(todo_id int not null primary key auto_increment,todo varchar(100) not null, description varchar(200), label varchar(100))';
+  connection.query(create_tlist,(error,results) => {
+    if(error){
+      console.log('create_tlist error!')
       console.log(error);
-      console.log(results);
-      console.log('b');
-      user_todo_list = results;
+      res.redirect('/todo');
+    }
+    if(results){
       next();
-    });
-  }else{
-    res.redirect('/');
-  }
+    }
+  });
 }
-function preP2(req,res){
-  if(typeof listname === 'undefined'){
-    res.render('todo.ejs',{u_todo_list:user_todo_list});//ejsに値を渡してhtmlを生成
-  }else{
-    res.render('todo.ejs',{user_todo_list:user_todo_list,ToDo:list_data});//ejsに値を渡してhtmlを生成
-  }
+
+app.post('/drop_tList',tlist_dlt1,tlist_dlt2);
+function tlist_dlt2(req,res){
+  tlist_drop_sql = 'delete from ManageLists where list_id=?';
+  connection.query(tlist_drop_sql,[drop_listid],(error,result) => {
+    if(error){
+      console.log('error -> delete tlist at MagageLists');
+      console.log(error);
+    }
+    if(result){
+      console.log('delete tlist at MagageLists');
+    }
+    drop_tList_flag = true;
+    res.redirect('/todo');
+  });
 }
-*/
+function tlist_dlt1(req,res,next){
+  drop_listid = req.body.c_list+'_'+req.session.username;
+  drop_listid = drop_listid.replace(/'/g,'');
+  drop_tlist_sql = 'drop table '+drop_listid;
+  drop_tlist_sql = drop_tlist_sql.replace(/'/g,'');
+
+  connection.query(drop_tlist_sql,(error,results) => {
+    console.log(error);
+    console.log(results);
+    if(error){
+      console.log('drop_tlist error!')
+      console.log(error);
+      res.redirect('/todo');
+    }
+    if(results){
+      next();
+    }
+  });
+}
+
 app.get('/todo',tp1,tp2,tp3);
 function tp1(req,res,next){
   if(typeof req.session.username !== 'undefined'){
@@ -140,27 +240,27 @@ function tp1(req,res,next){
   }
 }
 function tp2(req,res,next){
-    var_todo_user_list = 'select list_name from manage_ToDoList where user_id=?';
+    var_todo_user_list = 'select * from ManageLists where user_id=?';
     connection.query(var_todo_user_list,req.session.username,(error, results) =>{
       user_todo_list = results;
-      console.log(user_todo_list);
       next();
     });
 }
 function tp3(req,res){
-  if(typeof list_data !== 'undefined'){
-    console.log(list_data);
-    res.render('todo.ejs',{u_todo_list:user_todo_list,ToDo:list_data});
-  }else{
+  if(typeof list_data === 'undefined' || drop_tList_flag == true){
+    drop_tList_flag = false;
     res.render('todo.ejs',{u_todo_list:user_todo_list});
+  }else{
+    res.render('todo.ejs',{u_todo_list:user_todo_list,ToDo:list_data,NowList:list_n});
   }
 }
 
 app.post('/add_todo',todo_ad,todo_addl);
 function todo_ad(req,res,next){
-  todo_ad_sql = 'INSERT INTO '+connection.escape(listname)+' values (?)';
+  todo_ad_sql = 'INSERT INTO '+connection.escape(listname)+' (todo,description,label) values (?)';
   todo_ad_sql = todo_ad_sql.replace(/'/g,'');
-  connection.query(todo_ad_sql,[req.body.todo],(error,results)=>{
+  todo_ad_val = [req.body.todo, req.body.description, req.body.label];
+  connection.query(todo_ad_sql,[todo_ad_val],(error,results)=>{
     next();
     console.log(error);
     console.log(req.body.todo);
@@ -169,31 +269,27 @@ function todo_ad(req,res,next){
 
 app.post('/delete_todo',todo_dlt,todo_addl);
 function todo_dlt(req,res,next){
-  todo_dlt_sql = 'DELETE FROM '+connection.escape(listname)+' WHERE todo=?';
+  todo_dlt_sql = 'DELETE FROM '+connection.escape(listname)+' WHERE todo_id=?';
   todo_dlt_sql = todo_dlt_sql.replace(/'/g,'');
-  connection.query(todo_dlt_sql,[req.body.todo],(error,results)=>{
+  connection.query(todo_dlt_sql,[req.body.todo_id],(error,results)=>{
     next();
     console.log(error);
-    console.log(req.body.todo);
+    console.log(req.body.todo_id);
   });
 }
 
 app.post('/todo_choise_list',todo_addl);
 function todo_addl(req,res){
   if(req.body.c_list != null){
-    listname = req.body.c_list;
+    list_n = req.body.c_list;
+    listname = req.body.c_list+'_'+req.session.username;
+    listname = listname.replace(/'/g,'');
   }
   var_todo = 'SELECT * FROM '+connection.escape(listname);
   var_todo = var_todo.replace(/'/g,'');
   connection.query(var_todo,(error, results,fields) => {
     list_data = results;
     res.redirect('/todo');
-    console.log('---tcl---')
-    console.log(error);
-    console.log(results);
-    console.log(listname);
-    console.log(list_data);
-    console.log('---end-cl---')
   });
 }
 
@@ -208,7 +304,7 @@ app.get('/register', (req, res) => {
 
 app.post('/register_account',(req,res) =>{
   pass_hash = bcrypt.hashSync(req.body.register_password, 10);
-  var_sql_register = "insert into account_test (user_id,user_name,mail_address,password) values (?);";
+  var_sql_register = "insert into ManageAccount(user_id,user_name,mail_address,password) values (?);";
   var_values_register = [req.body.register_userid, req.body.register_username, req.body.register_mail, pass_hash];
   connection.query(var_sql_register, [var_values_register],(error,results)=>{
     if(error){
