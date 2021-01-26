@@ -76,7 +76,7 @@ app.post('/login_account',(req,res) => {
 });
 
 app.get('/logout', (req, res) => {
-  if(typeof req.session.username !== 'undefined'){
+  if(typeof req.session.username === 'undefined'){
     res.redirect('/');
   }else{
     res.render('logout.ejs');
@@ -278,6 +278,8 @@ function todo_dlt(req,res,next){
   });
 }
 
+app.post('/search_todo',todo_addl);
+
 app.post('/todo_choise_list',todo_addl);
 function todo_addl(req,res){
   if(req.body.c_list != null){
@@ -287,10 +289,27 @@ function todo_addl(req,res){
   }
   var_todo = 'SELECT * FROM '+connection.escape(listname);
   var_todo = var_todo.replace(/'/g,'');
-  connection.query(var_todo,(error, results,fields) => {
-    list_data = results;
-    res.redirect('/todo');
-  });
+  if(typeof req.body.search === 'undefined'){
+    connection.query(var_todo,(error, results,fields) => {
+      list_data = results;
+      res.redirect('/todo');
+    });
+  }else{
+    if(req.body.search == ''){
+      connection.query(var_todo,(error, results,fields) => {
+        list_data = results;
+        res.redirect('/todo');
+      });
+    }else{
+      var_todo_search = var_todo+' where label=?';
+      var_todo_search = var_todo_search.replace(/'/g,'');
+      connection.query(var_todo_search,[req.body.search],(error, results,fields) => {
+        list_data = results;
+        res.redirect('/todo');
+      });
+    }
+  }
+
 }
 
 app.get('/register', (req, res) => {
