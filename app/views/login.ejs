@@ -6,21 +6,24 @@
     <link rel="stylesheet" href="/css/login.css"/>
   </head>
   <body>
-    <h1>ログイン</h1>
-    <form action="/login_account" method="post" id="login">
-      <p>
-      ユーザーID<br>
-      <input type="text" id="user-id" name="userid" required="required" maxlength="20" pattern="^[0-9A-Za-z]+$" placeholder="userid">
-      </p>
-      <p>
-      password<br>
-      <input type="password" id="password" name="password" required="required" maxlength="20" pattern="^[0-9A-Za-z]+$" placeholder="passwprd">
-      </p>
-      <button type="submit"> ログイン</button>
-    </form>
-    または
-    <a href="register">登録</a><br>
-    <a href="/">トップページ</a><br>
+    <div class="title"><h1>ログイン</h1></div>
+    <div class="inner">
+      <form action="/login_account" method="post" id="login">
+        <p>
+        ユーザーID<br>
+        <input type="text" id="user-id" name="userid" required="required" maxlength="20" pattern="^[0-9A-Za-z]+$" placeholder="userid">
+        </p>
+        <p>
+        パスワード<br>
+        <input type="password" id="password" name="password" required="required" maxlength="20" pattern="^[0-9A-Za-z]+$" placeholder="passwprd">
+        </p>
+        <button class="login-button" type="submit"> ログイン</button>
+      </form>
+    </div>
+    <div class="link">
+      <a onclick="location.href='register'">新規登録ページへ</a>&nbsp;
+      <a onclick="location.href='/'">メインページへ</a>
+    </div>
     <% if(typeof l_log !== 'undefined' ){%>
       <p><%= l_log %></p>
     <% } %>

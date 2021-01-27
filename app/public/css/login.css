@@ -1,18 +1,29 @@
-body {
-    background-color: #B5CEE4;
-  }
+body{
+  background-color: #B5CEE4;
+}
 
-h1 {
-    font-size: 30px;
-    font-family: "Arial Black";
-  }
+.title{
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%);
+}
 
-form {
-    font-size: 18px;
-    font-family: "Arial";
-    padding: 10px 0;
-    clear:both;
-  }
+h1{
+  font-size: 30px;
+  font-family: "Arial Black";
+}
+
+form{
+  font-size: 18px;
+  font-family: "Arial";
+  clear:both;
+}
+
+a{
+  text-align: center
+}
 
 .inner{
   position: absolute;
@@ -24,27 +35,22 @@ form {
   border: 1px solid black;
 }
 
+.link{
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%);
+}
+
 input{
   width: 250px;
 }
 
-button.login-button {
-    font-size: 1.3sem;
-    font-weight: bold;
-    padding: 4px 20px;
-    background-color: #EAEAE0;
-    }
-    
-button.goto-register-button {
-  font-size: 1.3sem;
+button.login-button{
+  width: 255px;
+  font-size: 15px;
   font-weight: bold;
-  padding: 4px 20px;
+  padding: 10px;
   background-color: #EAEAE0;
-  }
-
-button.goto-index-button {
-  font-size: 1.3sem;
-  font-weight: bold;
-  padding: 4px 20px;
-  background-color: #EAEAE0;
-  }
+}

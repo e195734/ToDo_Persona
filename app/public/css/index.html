@@ -6,10 +6,12 @@
     <link rel="stylesheet" href="./index.css"/>
   </head>
   <body>
-    <button class="goto-login-button" href="login">ログイン</button>
-    <button class="goto-logout-button" href="logout">ログアウト</button>
-    <button class="goto-register-button"　href="register">新規登録</button>
-    <button class="goto-todo-button" href="todo">ToDoに移動</button>
+    <div class="inner">
+      <button class="goto-login-button" onclick="location.href='login'">ログイン</button></br>
+      <button class="goto-logout-button" onclick="location.href='logout'">ログアウト</button></br>
+      <button class="goto-register-button"　onclick="location.href='register'">新規登録</button></br>
+      <button class="goto-todo-button" onclick="location.href='todo'">ToDoに移動</button></br>
+    </div>
     <% if(typeof uid !== 'undefined' ){%>
       <p>welcome <%= uid %> !</p>
     <% } %>

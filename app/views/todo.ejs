@@ -2,73 +2,81 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8">
-    <title>ToDoリスト</title>
+    <title>ToDoリスト管理ページ</title>
     <link rel="stylesheet" href="/css/todo.css"/>
   </head>
   <body>
-    <h1>あなたのリスト一覧</h1>
-    <table>
-      <% if(typeof u_todo_list !== 'undefined'){ %>
-      <% u_todo_list.forEach((tablist) => { %>
-      <tr>
-        <td>
-          <%= tablist.list_name %>
-        </td>
-        <td>
-          <form method="post" id="c_list">
-            <input type="hidden" id="c_list" name="c_list" value="<%= tablist.list_name %>">
-            <button type="submit" id="c_list" formaction="/todo_choise_list">リストを選択</button>
-            <button type="submit" id="c_list" formaction="/drop_tList">リストを削除</button>
-          </form>
-        </td>
-      </tr>
-      <% }); %>
+    <div class="box1_List">
+      <a href="/">トップページに戻る</a><br>
+      <h1>あなたのリスト一覧</h1>
+      <div>
+        <table>
+          <% if(typeof u_todo_list !== 'undefined'){ %>
+          <% u_todo_list.forEach((tablist) => { %>
+            <tr>
+              <td><%= tablist.list_name %></td>
+              <td>
+                <form method="post" id="c_list">
+                  <input type="hidden" id="c_list" name="c_list" value="<%= tablist.list_name %>">
+                  <button type="submit" id="c_list" formaction="/todo_choise_list">リストを選択</button>
+                  <button type="submit" id="c_list" formaction="/drop_tList">リストを削除</button>
+                </form>
+              </td>
+            </tr>
+          <% }); %>
+          <% } %>
+        </table>
+      </div>
+      <div>
+        <form action="/add_tList" method="post" id="add-tlist">
+          <input type="text" id="tlist" name="tlist" required="required" maxlength="20" placeholder="20字まで．(例:HogeList1)">
+          <button type="submit" id="add-tlist">リストを登録</button>
+        </form>
+      </div>
+    </div>
+
+    <div clas="box2_ToDo">
+      <% if(typeof NowList !== 'undefined'){ %>
+        <p>現在表示しているリストは<%= NowList %>です！</p>
       <% } %>
-    </table>
-
-
-    <form action="/add_tList" method="post" id="add-tlist">
-      <input type="text" id="tlist" name="tlist" required="required" maxlength="20" placeholder="20字まで．(例:HogeList1)">
-      <button type="submit" id="add-tlist">リストを登録</button>
-    </form>
-
-    <% if(typeof NowList !== 'undefined'){ %>
-    <p>現在表示しているリストは<%= NowList %>です！</p>
-    <% } %>
-    <% if(typeof ToDo !== 'undefined'){ %>
-    <h2>ToDo</h2>
-    <table>
-      <tr>
-        <td>[TODO]</td><td>[LABEL]</td><td>[DESCRIPTION]</td><td>[erase button]</td>
-      </tr>
-      <% ToDo.forEach((todo) => { %>
-      <tr>
-        <td>
-          <%= todo.todo %>
-        </td>
-        <td>
-          <%= todo.label %>
-        </td>
-        <td>
-          <%= todo.description %>
-        </td>
-        <td>
-          <form action="/delete_todo" method="post" id="delete-list">
-            <input type="hidden" id="toudou" name="todo_id" value="<%= todo.todo_id %>">
-            <button type="submit" id="delete-list">削除</button>
+      <% if(typeof ToDo !== 'undefined'){ %>
+        <div>
+          <h2>ToDo</h2>
+          <form action="/add_todo" method="post" id="add-list">
+            <input type="text" id="todo" name="todo" required="required" maxlength="100" placeholder="100字まで．(例:OSの課題1.1をやる！)"><br>
+            <input type="text" id="todo" name="label" required="required" maxlength="100" placeholder="100字まで．(例:OS)"><br>
+            <input type="text" id="todo" name="description" required="required" maxlength="200" placeholder="200字まで．(例:今日中にやる！)"><br>
+            <button type="submit" id="add-list">ToDoを登録</button>
           </form>
-        </td>
-      </tr>
-      <% }); %>
-    </table>
-    
-    <form action="/add_todo" method="post" id="add-list">
-      <input type="text" id="todo" name="todo" required="required" maxlength="100" placeholder="100字まで．(例:OSの課題1.1をやる！)"><br>
-      <input type="text" id="todo" name="label" required="required" maxlength="100" placeholder="100字まで．(例:OS)"><br>
-      <input type="text" id="todo" name="description" required="required" maxlength="200" placeholder="200字まで．(例:今日中にやる！)"><br>
-      <button type="submit" id="add-list">ToDoを登録</button>
-    </form>
-    <% } %>
-    <a href="/">トップページに戻る</a><br>
+        </div>
+        <div class="search_todo">
+          <form action="/search_todo" method="post">
+            <input type="text" name="search">
+            <button type="submit">ToDoをラベル検索</button>
+          </form>
+        </div>
+        <div>
+          <table>
+            <tr>
+              <td>[TODO]</td><td>[LABEL]</td><td>[DESCRIPTION]</td><td>[erase button]</td>
+            </tr>
+            <% ToDo.forEach((todo) => { %>
+              <tr>
+                <td><%= todo.todo %></td>
+                <td><%= todo.label %></td>
+                <td><%= todo.description %></td>
+                <td>
+                  <form action="/delete_todo" method="post" id="delete-list">
+                    <input type="hidden" id="toudou" name="todo_id" value="<%= todo.todo_id %>">
+                    <button type="submit" id="delete-list">削除</button>
+                  </form>
+                </td>
+              </tr>
+            <% }); %>
+          </table>
+        </div>
+      
+      <% } %>
+    </div>
   </body>
 </html>
