@@ -25,6 +25,9 @@
         パスワード<br>
         <input type="password" id="password" name="register_password" required="required" maxlength="20" pattern="^[0-9A-Za-z]+$" placeholder="半角英数字のみ．20字まで．(例:hoge1234)">
         </p>
+        <% if(typeof r_log !== 'undefined' ){%>
+          <p><%= r_log %></p>
+        <% } %>
         <button class="register-button" type="submit"> 登録</button>
       </form>
     </div>
@@ -32,8 +35,5 @@
       <a onclick="location.href='login'">ログインページへ</a>&nbsp;
       <a onclick="location.href='/'">メインページへ</a>
     </div>
-    <% if(typeof r_log !== 'undefined' ){%>
-    <p><%= r_log %></p>
-    <% } %>
   </body>
 </html>
