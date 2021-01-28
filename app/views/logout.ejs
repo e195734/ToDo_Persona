@@ -2,15 +2,19 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8">
-    <title>ToDoリストログイン</title>
+    <title>ToDoリストログアウト</title>
+    <link rel="stylesheet" href="/css/logout.css"/>
   </head>
   <body>
-    <h1>ログアウトしますか？</h1>
-    <form action="logout_account">
-        <input type="submit" value="ログアウト" />
-    </form>
-    <form action="todo">
-        <input type="submit" value="メインページへ" />
-    </form>
+    <div class="title"><h1>ログアウト</h1></div>
+    <div class="inner">
+      ログアウトしますか？
+      <form action="">
+        <button class="goto-logout-button" type="submit"> ログアウト </button>
+      </form>
+      <form action="/todo">
+        <button class="goto-index-button" onclick="location.href='/'"> メインページへ </button>
+      </form>
+    </div>
   </body>
 </html>
