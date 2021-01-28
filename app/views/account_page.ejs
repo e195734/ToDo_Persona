@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>アカウント情報ページ</title>
+    <link rel="stylesheet" href="/css/index.css"/>
+  </head>
+  <body>
+    <p>アカウント情報/更新</p><br>
+    <p>ユーザーID: <%= a_data.user_id %></p><br>
+    <p>ユーザー名: <%= a_data.user_name %></p><br>
+    <form action="/update_username" method="post" id="upd_username">
+      <input type="text" id="upd_username" name="new_username">
+      <button type="submit" id="upd_username">変更</button>
+    </form>
+    <p>メールアドレス: <%= a_data.mail_address %></p><br>
+    <form action="/update_mailaddress" method="post" id="upd_mailaddress">
+      <input type="text" id="upd_mailaddress" name="new_mailaddress">
+      <button type="submit" id="upd_mailaddress">変更</button>
+    </form>
+    <a href="/logout">ログアウト</a>
+    <a href="/delete">アカウントの削除</a>
+    <a href="/">メインページへ</a>
+    <a href="/todo">ToDoへ</a>
+  </body>
+</html>

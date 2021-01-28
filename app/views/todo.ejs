@@ -7,7 +7,7 @@
   </head>
   <body>
     <div class="box1_List">
-      <a href="/">トップページに戻る</a><br>
+      <a href="/">メインページへ</a><br>
       <h1>あなたのリスト一覧</h1>
       <div>
         <table>
@@ -49,7 +49,12 @@
             <button type="submit" id="add-list">ToDoを登録</button>
           </form>
         </div>
-
+        <div class="search_todo">
+          <form action="/search_todo" method="post">
+            <input type="text" name="search">
+            <button type="submit">ToDoをラベル検索</button>
+          </form>
+        </div>
         <div>
           <table>
             <tr>
