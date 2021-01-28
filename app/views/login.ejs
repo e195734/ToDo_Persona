@@ -17,6 +17,9 @@
         パスワード<br>
         <input type="password" id="password" name="password" required="required" maxlength="20" pattern="^[0-9A-Za-z]+$" placeholder="passwprd">
         </p>
+        <% if(typeof l_log !== 'undefined' ){%>
+          <p><%= l_log %></p>
+        <% } %>
         <button class="login-button" type="submit"> ログイン</button>
       </form>
     </div>
@@ -24,8 +27,5 @@
       <a onclick="location.href='register'">新規登録ページへ</a>&nbsp;
       <a onclick="location.href='/'">メインページへ</a>
     </div>
-    <% if(typeof l_log !== 'undefined' ){%>
-      <p><%= l_log %></p>
-    <% } %>
   </body>
 </html>

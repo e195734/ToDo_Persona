@@ -120,10 +120,16 @@ function ShowAccountPage2(req,res){
   var_show_account_sql = 'select * from ManageAccount where user_id=?';
   connection.query(var_show_account_sql,req.session.username,(error, results) =>{
     account_data = results;
-    res.render('test_account_page.ejs',{a_data:account_data[0]});
+    res.render('account_page.ejs',{a_data:account_data[0]});
   });
 }
-
+app.get('/delete', (req, res) => {
+  if(typeof req.session.username === 'undefined'){
+    res.redirect('/');
+  }else{
+    res.render('delete.ejs');
+  }
+});
 app.get('/delete_account',DelAccount1,DelAccount2,DelAccount3,DelAccount4,LogoutAccount1);
 function DelAccount1(req,res,next){
   sql_search_del_tbl = 'select list_id from ManageLists where user_id=?';
