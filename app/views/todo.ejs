@@ -14,12 +14,12 @@
           <% if(typeof u_todo_list !== 'undefined'){ %>
           <% u_todo_list.forEach((tablist) => { %>
             <tr>
-              <td><%= tablist.list_name %></td>
+              <td class="list-card"><%= tablist.list_name %></td>
               <td>
                 <form method="post" id="c_list">
                   <input type="hidden" id="c_list" name="c_list" value="<%= tablist.list_name %>">
-                  <button type="submit" id="c_list" formaction="/todo_choise_list">リストを選択</button>
-                  <button type="submit" id="c_list" formaction="/drop_tList">リストを削除</button>
+                  <button class="list-button" ype="submit" id="c_list" formaction="/todo_choise_list">リストを選択</button>
+                  <button class="list-button" type="submit" id="c_list" formaction="/drop_tList">リストを削除</button>
                 </form>
               </td>
             </tr>
@@ -27,55 +27,51 @@
           <% } %>
         </table>
       </div>
-      <div>
-        <form action="/add_tList" method="post" id="add-tlist">
+      <div class="new-list">
+      <p class="new-sub-reg">リスト新規登録</p>
+      <form action="/add_tList" method="post" id="add-tlist">
           <input type="text" id="tlist" name="tlist" required="required" maxlength="20" placeholder="20字まで．(例:HogeList1)">
-          <button type="submit" id="add-tlist">リストを登録</button>
+          <button class="button" type="submit" id="add-tlist">リストを登録</button>
         </form>
       </div>
     </div>
 
-    <div clas="box2_ToDo">
+    <div class="box2_ToDo">
       <% if(typeof NowList !== 'undefined'){ %>
         <p>現在表示しているリストは<%= NowList %>です！</p>
       <% } %>
       <% if(typeof ToDo !== 'undefined'){ %>
         <div>
           <h2>ToDo</h2>
+          <div class="new-task">
           <form action="/add_todo" method="post" id="add-list">
-            <input type="text" id="todo" name="todo" required="required" maxlength="100" placeholder="100字まで．(例:OSの課題1.1をやる！)"><br>
-            <input type="text" id="todo" name="label" required="required" maxlength="100" placeholder="100字まで．(例:OS)"><br>
-            <input type="text" id="todo" name="description" required="required" maxlength="200" placeholder="200字まで．(例:今日中にやる！)"><br>
-            <button type="submit" id="add-list">ToDoを登録</button>
+            <p>タスク名:
+            <input class="todo-form" type="text" id="todo" name="todo" required="required" maxlength="100" placeholder="100字まで．(例:OSの課題1.1をやる！)"></p>
+            <p>ラベル:
+            <input class="todo-form" type="text" id="todo" name="label" required="required" maxlength="100" placeholder="100字まで．(例:OS)"></p>
+            <p style="display:inline">説明文:
+            <input class="todo-form" type="text" id="todo" name="description" required="required" maxlength="200" placeholder="200字まで．(例:今日中にやる！)"></p>
+            <button class="new-todo-button" type="submit" id="add-list">ToDoを登録</button>
           </form>
+          </div>
         </div>
         <div class="search_todo">
           <form action="/search_todo" method="post">
-            <input type="text" name="search">
-            <button type="submit">ToDoをラベル検索</button>
+            <input class="search-form" type="text" name="search">
+            <button class="button" type="submit">ToDoをラベル検索</button>
           </form>
         </div>
-        <div>
-          <table>
-            <tr>
-              <td>[TODO]</td><td>[LABEL]</td><td>[DESCRIPTION]</td><td>[erase button]</td>
-            </tr>
             <% ToDo.forEach((todo) => { %>
-              <tr>
-                <td><%= todo.todo %></td>
-                <td><%= todo.label %></td>
-                <td><%= todo.description %></td>
-                <td>
+            <div class="todo-card">
+                <p>タスク名:<%= todo.todo %></p>
+                <p>ラベル:<%= todo.label %></p>
+                <p style="display:inline"> 説明文:<%= todo.description %></p>               
                   <form action="/delete_todo" method="post" id="delete-list">
                     <input type="hidden" id="toudou" name="todo_id" value="<%= todo.todo_id %>">
-                    <button type="submit" id="delete-list">削除</button>
+                    <button class="delete-button" type="submit" id="delete-list">削除</button>
                   </form>
-                </td>
-              </tr>
+                  </div>
             <% }); %>
-          </table>
-        </div>
-      
       <% } %>
     </div>
   </body>

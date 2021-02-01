@@ -36,7 +36,7 @@ input{
   width: 250px;
 }
 
-button.goto-logout-button{
+button.logout-button{
   width: 255px;
   font-size: 15px;
   font-weight: bold;
