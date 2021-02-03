@@ -1,11 +1,10 @@
 body{
   background-color: #B5CEE4;
-  text-align: center
 }
 
 .title{
   position: absolute;
-  top: 25%;
+  top: 15%;
   left: 50%;
   -webkit-transform: translateY(-50%) translateX(-50%);
   transform: translateY(-50%) translateX(-50%);
@@ -20,9 +19,16 @@ form{
   font-size: 18px;
   font-family: "Arial";
   clear:both;
+  width: 500px;
+}
+
+a{
+  text-align: center
 }
 
 .inner{
+  font-size: 18px;
+  font-family: "Arial";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -32,21 +38,22 @@ form{
   border: 1px solid black;
 }
 
-input{
-  width: 250px;
+.link{
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%);
 }
 
-button.logout-button{
-  width: 255px;
-  font-size: 15px;
-  font-weight: bold;
-  padding: 10px;
-  background-color: #EAEAE0;
+input{
+  width: 400px;
 }
-button.goto-index-button{
-  width: 255px;
+
+button.change-button{
+  width: 80px;
   font-size: 15px;
   font-weight: bold;
-  padding: 10px;
+  padding: 1px;
   background-color: #EAEAE0;
 }
