@@ -1,5 +1,8 @@
 body {
     background-color: #B5CEE4;
+    font-size: 18px;
+    font-family: "Arial";
+    clear:both;
   }
 
 h1 {
@@ -7,9 +10,72 @@ h1 {
     font-family: "Arial Black";
   }
 
+.new-sub-reg{
+    font-size: 23px;
+    font-family: "Arial";
+  }
+
 h2 {
     font-size: 27px;
     font-family: "Arial";
+  }
+
+.new-list{
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 20%;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.new-task{
+  background-color:#e0e0e0;
+  border: 1px solid black;
+  line-height:1;
+  padding: 10px;
+  font-size: 15px;
+  height: 120px;
+}
+
+.box1_List { 
+  background-color:#e0e0e0;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  padding: 20px;
+  width: 30%;
+  height: 100%;
+  border: 1px solid black;
+}
+
+.box2_ToDo {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 20px;
+  width: 60%;
+  height: 100%;
+  }
+
+.search_todo{
+  padding: 5px;
+  }
+
+.list-card{
+  border: 1px solid black;
+  padding: 0px 7px;
+  }
+
+.todo-card{
+  background-color:#90b4ce;
+  border: 1px solid black;
+  padding: 10px;
+  margin:5px;
+  line-height:1;
+  font-size: 15px;
+  height: 100px;
   }
 
 ul {
@@ -17,16 +83,53 @@ ul {
     font-family: "Arial";
   }
 
-button.choice-button {
-    font-size: 1.3sem;
+input.todo-form{
+  width: 60%;
+  }
+
+input.search-form{
+  width: 50%;
+  }
+
+button.list-button {
+    font-size: 15px;
     font-weight: bold;
-    padding: 4px 20px;
+    padding: 4px 5px;
     background-color: #EAEAE0;
     }
 
-button.delete-button {
-  font-size: 1.3sem;
+button.submit-button {
+  font-size: 15px;
   font-weight: bold;
   padding: 4px 20px;
   background-color: #EAEAE0;
   }
+
+button.new-todo-button {
+  position:relative;
+  bottom:22px;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 4px 20px;
+  background-color: #EAEAE0;
+  display: block;
+  margin: 0 0 0 auto;
+}
+
+button.delete-button {
+  position:relative;
+  bottom:22px;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 4px 20px;
+    background-color: #EAEAE0;
+    display: block;
+    margin: 0 0 0 auto
+    }
+
+button.button {
+    font-size: 15px;
+    font-weight: bold;
+    padding: 4px 20px;
+    background-color: #EAEAE0;
+    }

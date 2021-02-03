@@ -7,6 +7,7 @@
     <script type="text/javascript" src="../scripts/todo.js"></script>
   </head>
   <body>
+    <div class="side">
     <h1>あなたのリスト一覧</h1>
     <table>
       <% if(typeof u_todo_list !== 'undefined'){ %>
@@ -25,6 +26,7 @@
       <% }); %>
       <% } %>
     </table>
+    </div>
 
     <h2>ToDoリスト</h2>
     <table>
